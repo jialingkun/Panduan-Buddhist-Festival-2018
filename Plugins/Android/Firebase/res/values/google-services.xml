@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
+  <string name="firebase_database_url" translatable="false">https://buddhist-festival-ar-2018.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">489570369185</string>
+  <string name="google_storage_bucket" translatable="false">buddhist-festival-ar-2018.appspot.com</string>
+  <string name="project_id" translatable="false">buddhist-festival-ar-2018</string>
+  <string name="google_api_key" translatable="false">AIzaSyCjwHMPHrE8ZyIcdY2mnY_piw6LJRlB00c</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCjwHMPHrE8ZyIcdY2mnY_piw6LJRlB00c</string>
+  <string name="google_app_id" translatable="false">1:489570369185:android:3e63982228b115e7</string>
+  <string name="default_web_client_id" translatable="false">489570369185-0qnq3ki9bntc4r3lvcnovp1hdlorocss.apps.googleusercontent.com</string>
+</resources>

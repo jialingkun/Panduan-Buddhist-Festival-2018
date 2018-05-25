@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "489570369185",
+    "firebase_url": "https://buddhist-festival-ar-2018.firebaseio.com",
+    "project_id": "buddhist-festival-ar-2018",
+    "storage_bucket": "buddhist-festival-ar-2018.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:489570369185:android:3e63982228b115e7",
+        "android_client_info": {
+          "package_name": "com.bekko.ARBuddhistFestival2018"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "489570369185-0qnq3ki9bntc4r3lvcnovp1hdlorocss.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjwHMPHrE8ZyIcdY2mnY_piw6LJRlB00c"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
