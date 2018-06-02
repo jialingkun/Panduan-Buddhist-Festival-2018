@@ -60,10 +60,7 @@ public class Denah : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Screen.orientation = ScreenOrientation.Portrait;
-
-		//load all, should be execute at start menu
-		SaveLoad.loadAll();
+		//Screen.orientation = ScreenOrientation.Portrait;
 
 		//user guide
 		guide = GameObject.Find ("Guide");

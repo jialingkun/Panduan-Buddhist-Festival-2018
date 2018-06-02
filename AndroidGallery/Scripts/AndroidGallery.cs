@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
+
 
 namespace LukeWaffel.AndroidGallery{
 
@@ -11,6 +13,7 @@ namespace LukeWaffel.AndroidGallery{
 
 		private Sprite loadedSprite;
 		private Texture loadedTexture;
+		private string loadedFileName;
 
 		private WWW imageWWW;
 
@@ -61,6 +64,14 @@ namespace LukeWaffel.AndroidGallery{
 			//We set both the loaded texture and Sprite to null
 			loadedTexture = null;
 			loadedSprite = null;
+			loadedFileName = null;
+
+		}
+
+		public string GetFileName(){
+
+			//We simply return the loaded texture
+			return loadedFileName;
 
 		}
 
@@ -100,7 +111,8 @@ namespace LukeWaffel.AndroidGallery{
 
 		//This function is called by the Android plugin when the user selects and image
 		public void OnImageSelect(string path){
-
+			//get filename from path
+			loadedFileName = Path.GetFileName (path);
 			//We create a new WWW to load the selected file
 			imageWWW = new WWW ("file://" + path);
 			
