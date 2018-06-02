@@ -9,8 +9,11 @@ public class ImagePicker : MonoBehaviour {
 
 	private Texture2D loadedTexture;
 	private string loadedName;
-	//loading preview
+	//compress
+	public float compressWidth = 1280f;
+	//loading
 	public Texture2D loadingImage;
+	private bool loadingComplete = false;
 	//form daftar
 	private GameObject previewDaftar;
 	private InputField nama;
@@ -31,7 +34,6 @@ public class ImagePicker : MonoBehaviour {
 	private GameObject confirmLomba;
 	// Use this for initialization
 	void Start () {
-
 		//lomba
 		previewDaftar = GameObject.Find("PreviewDaftar");
 		nama = GameObject.Find("Nama").GetComponent<InputField>();
@@ -55,6 +57,7 @@ public class ImagePicker : MonoBehaviour {
 
 	//This function is called by the Button
 	public void OpenGalleryButton(){
+		loadingComplete = false;
 		//display loading texture
 		previewDaftar.GetComponent<RawImage> ().texture = loadingImage;
 		previewNonDaftar.GetComponent<RawImage> ().texture = loadingImage;
@@ -91,6 +94,9 @@ public class ImagePicker : MonoBehaviour {
 		previewNonDaftar.GetComponent<AspectRatioFitter> ().aspectRatio = ratio;
 		previewNonDaftar.GetComponent<RawImage> ().texture = loadedTexture;
 
+		//loading
+		loadingComplete = true;
+
 	}
 
 	public void clickCancelLomba(){
@@ -100,67 +106,85 @@ public class ImagePicker : MonoBehaviour {
 	}
 
 	public void clickUploadDaftar(){
-		if (nama.text.Length > 1 && telp.text.Length > 5) {
-			PlayerPrefs.SetString("Telepon",telp.text);
-			PlayerPrefs.SetString("Nama",nama.text);
-			formDaftar.SetActive (false);
-			clickUpload ();
-		} else {
-			peringatan.SetActive (true);
+		if (loadingComplete) {
+			if (nama.text.Length > 1 && telp.text.Length > 5) {
+				PlayerPrefs.SetString("Telepon",telp.text);
+				PlayerPrefs.SetString("Nama",nama.text);
+				formDaftar.SetActive (false);
+				clickUpload ();
+			} else {
+				peringatan.SetActive (true);
+			}
 		}
+
 	}
 
 	public void clickUpload(){
-		uploadPanel.SetActive (false);
-		uploadStatus.SetActive (true);
-		closeStatus.SetActive (false);
+		if (loadingComplete) {
+			uploadPanel.SetActive (false);
+			uploadStatus.SetActive (true);
+			closeStatus.SetActive (false);
 
-		status.text = "Sedang mempersiapkan file.";
-		StartCoroutine (AnimateText());
-		try {
-			// Get a reference to the storage service, using the default Firebase App
-			Firebase.Storage.FirebaseStorage storage = Firebase.Storage.FirebaseStorage.DefaultInstance;
+			status.text = "Sedang mempersiapkan file.";
+			StartCoroutine (AnimateText());
+			try {
+				// Get a reference to the storage service, using the default Firebase App
+				Firebase.Storage.FirebaseStorage storage = Firebase.Storage.FirebaseStorage.DefaultInstance;
 
-			// Create a storage reference from our storage service
-			Firebase.Storage.StorageReference storage_ref = storage.GetReferenceFromUrl("gs://buddhist-festival-ar-2018.appspot.com");
+				// Create a storage reference from our storage service
+				Firebase.Storage.StorageReference storage_ref = storage.GetReferenceFromUrl("gs://buddhist-festival-ar-2018.appspot.com");
 
-			// Create a child reference
-			// images_ref now points to "images"
-			Firebase.Storage.StorageReference images_ref = storage_ref.Child("Lomba Foto/"+PlayerPrefs.GetString ("Nama", "")+"_"+PlayerPrefs.GetString ("Telepon", "")+"/"+loadedName);
+				// Create a child reference
+				// images_ref now points to "images"
+				Firebase.Storage.StorageReference images_ref = storage_ref.Child("Lomba Foto/"+PlayerPrefs.GetString ("Nama", "")+"_"+PlayerPrefs.GetString ("Telepon", "")+"/"+loadedName);
 
-			// Data in memory
-			byte[] custom_bytes = loadedTexture.EncodeToPNG();
+				//compress texture
+				Texture2D compressedTexture = loadedTexture;
+				if ((float)loadedTexture.width>compressWidth) {
+					float ratio = (float)loadedTexture.width / compressWidth;
+					int newWidth = (int)((float)loadedTexture.width/ratio);
+					int newHeight = (int)((float)loadedTexture.height/ratio);
+					TextureScale.Bilinear(compressedTexture,newWidth,newHeight);
+				}
 
-			status.text = "Sedang Meng-upload Foto";
 
-			// Create file metadata including the content type
-			//Firebase.Storage.MetadataChange new_metadata = new Firebase.Storage.MetadataChange();
-			//new_metadata.ContentType = "image/png";
 
-			// Upload the file to the path "images/rivers.jpg"
-			images_ref.PutBytesAsync(custom_bytes)
-				.ContinueWith ((task) => {
-					if (task.IsFaulted || task.IsCanceled) {
-						//status.text = "Gagal mengupload foto.\n Pesan error:\n"+ task.Exception.ToString();
-						status.text = "Gagal mengupload foto.";
-						isanimate = false;
-						closeStatus.SetActive (true);
-						// Uh-oh, an error occurred!
-					} else {
-						// Metadata contains file metadata such as size, content-type, and download URL.
-						//Firebase.Storage.StorageMetadata metadata = task.Result;
-						status.text = "Upload selesai. Terima kasih sudah berpartisipasi dalam lomba foto.";
-						isanimate = false;
-						closeStatus.SetActive (true);
-					}
-				});
 
-		} catch (System.Exception ex) {
-			//status.text = "Gagal mengupload foto.\n Pesan error:\n"+ ex.ToString();
-			status.text = "Gagal mengupload foto.";
-			isanimate = false;
-			closeStatus.SetActive (true);
+				// Data in memory
+				byte[] custom_bytes = compressedTexture.EncodeToJPG();
+
+				status.text = "Sedang Meng-upload Foto";
+
+				// Create file metadata including the content type
+				//Firebase.Storage.MetadataChange new_metadata = new Firebase.Storage.MetadataChange();
+				//new_metadata.ContentType = "image/png";
+
+				// Upload the file to the path "images/rivers.jpg"
+				images_ref.PutBytesAsync(custom_bytes)
+					.ContinueWith ((task) => {
+						if (task.IsFaulted || task.IsCanceled) {
+							//status.text = "Gagal mengupload foto.\n Pesan error:\n"+ task.Exception.ToString();
+							status.text = "Gagal mengupload foto.";
+							isanimate = false;
+							closeStatus.SetActive (true);
+							// Uh-oh, an error occurred!
+						} else {
+							// Metadata contains file metadata such as size, content-type, and download URL.
+							//Firebase.Storage.StorageMetadata metadata = task.Result;
+							status.text = "Upload selesai. Terima kasih sudah berpartisipasi dalam lomba foto.";
+							isanimate = false;
+							closeStatus.SetActive (true);
+						}
+					});
+
+			} catch (System.Exception ex) {
+				//status.text = "Gagal mengupload foto.\n Pesan error:\n"+ ex.ToString();
+				status.text = "Gagal mengupload foto.";
+				isanimate = false;
+				closeStatus.SetActive (true);
+			}
 		}
+
 
 	}
 
