@@ -8,18 +8,6 @@ public class Denah : MonoBehaviour {
 	//user guide
 	private GameObject guide;
 
-	//info
-	private GameObject PosGajah;
-	private GameObject PosLifeOfBuddha;
-	private GameObject PosNusantara;
-	private GameObject PosAshoka;
-	private GameObject PosTheatre;
-	private GameObject PosAlam;
-	private GameObject PosJembatan;
-	private GameObject PosNirwana;
-	private GameObject PosRelikPuja;
-	private GameObject PosKampungBuddhist;
-
 
 	//zoom and pan
 	//specific touch
@@ -60,36 +48,10 @@ public class Denah : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		//Screen.orientation = ScreenOrientation.Portrait;
+		Screen.orientation = ScreenOrientation.Landscape;
 
 		//user guide
 		guide = GameObject.Find ("Guide");
-
-		//info
-
-		PosGajah= GameObject.Find ("PosGajah");
-		PosLifeOfBuddha= GameObject.Find ("PosLifeOfBuddha");
-		PosNusantara= GameObject.Find ("PosNusantara");
-		PosAshoka = GameObject.Find ("PosAshoka");
-		PosTheatre= GameObject.Find ("PosTheatre");
-		PosAlam= GameObject.Find ("PosAlam");
-		PosJembatan= GameObject.Find ("PosJembatan");
-		PosNirwana= GameObject.Find ("PosNirwana");
-		PosRelikPuja= GameObject.Find ("PosRelikPuja");
-		PosKampungBuddhist= GameObject.Find ("PosKampungBuddhist");
-
-		hideInfo (PosGajah);
-		hideInfo (PosLifeOfBuddha);
-		hideInfo (PosNusantara);
-		hideInfo (PosAshoka);
-		hideInfo (PosTheatre);
-		hideInfo (PosAlam);
-		hideInfo (PosJembatan);
-		hideInfo (PosNirwana);
-		hideInfo (PosRelikPuja);
-		hideInfo (PosKampungBuddhist);
-
-
 
 		//zoom and pan
 

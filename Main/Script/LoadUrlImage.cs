@@ -7,11 +7,17 @@ public class LoadUrlImage : MonoBehaviour {
 
 	// The source image
 	public string url;
+	public Sprite noimage;
 
 	IEnumerator Start() {
 		using (WWW www = new WWW (url)) {
 			yield return www; //Bug download failed when setactive(false) triggered on this object
-			this.GetComponent<Image>().sprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0, 0));
+			if (!string.IsNullOrEmpty (www.error)) {
+				this.GetComponent<Image> ().sprite = noimage;
+			} else {
+				this.GetComponent<AspectRatioFitter>().aspectRatio = (float)www.texture.width / (float)www.texture.height;
+				this.GetComponent<Image>().sprite = Sprite.Create(www.texture, new Rect(0, 0, www.texture.width, www.texture.height), new Vector2(0, 0));
+			}
 		}
 
 	}

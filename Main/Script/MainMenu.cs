@@ -4,6 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
+
+	void Start () {
+		if (Input.deviceOrientation != DeviceOrientation.Portrait) {
+			Screen.orientation = ScreenOrientation.Portrait;
+		}
+	}
+
 	public void VisiMisi(){
 		SceneManager.LoadScene (2);
 	}
