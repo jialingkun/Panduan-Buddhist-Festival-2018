@@ -740,7 +740,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: 'Aplikasi ini
 
-    Dikembangkan Oleh'
+    dikembangkan oleh'
 --- !u!222 &682067492
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -959,7 +959,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 622292756}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.19607916
+  m_Size: 0.18720877
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1689,7 +1689,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2062518783}
   m_Direction: 0
   m_Value: 0
-  m_Size: 1
+  m_Size: 0.99999994
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -2040,7 +2040,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -3024}
+  m_AnchoredPosition: {x: 0, y: -3034}
   m_SizeDelta: {x: 481.8, y: 171.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1629915644
@@ -2380,8 +2380,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 1414.41}
-  m_SizeDelta: {x: 542.8, y: 374.35}
+  m_AnchoredPosition: {x: 0, y: 1424}
+  m_SizeDelta: {x: 675.3, y: 252}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2047349415
 MonoBehaviour:

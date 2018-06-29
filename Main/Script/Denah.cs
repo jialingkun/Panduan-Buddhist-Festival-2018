@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
+
 
 public class Denah : MonoBehaviour {
 	//user guide
@@ -185,10 +185,6 @@ public class Denah : MonoBehaviour {
 		isTouching = false;
 	}
 
-	public void CloseInfo(){
-		hideInfo (EventSystem.current.currentSelectedGameObject.transform.parent.gameObject);
-	}
-
 	public void clickPos(GameObject posObject){
 		showInfo (posObject);
 	}
@@ -198,18 +194,18 @@ public class Denah : MonoBehaviour {
 	}
 
 	private void showInfo(GameObject posObject){
-		
+		GameObject materi = GameObject.Instantiate (posObject);
+		materi.transform.SetParent (this.gameObject.transform, false);
+		materi.GetComponent<RectTransform> ().localPosition = Vector3.zero;
+		/*
 		posObject.GetComponent<RectTransform> ().localPosition = Vector3.zero;
 
 		RectTransform content = posObject.transform.Find ("Scroll View/Viewport/Content").GetComponent<RectTransform> ();
 		Vector3 contentPosition = content.anchoredPosition;
 		contentPosition.y = 0;
 		content.anchoredPosition = contentPosition;
+		*/
 	}
 
-	private void hideInfo(GameObject posObject){
-		Vector3 posPosition = posObject.GetComponent<RectTransform> ().localPosition;
-		posPosition.x = 1000; //throw it outside canvas, canvas x point is -800 to 800
-		posObject.GetComponent<RectTransform> ().localPosition = posPosition;
-	}
+
 }
